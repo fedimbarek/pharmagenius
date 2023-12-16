@@ -1,0 +1,123 @@
+<ng-container *ngIf="products.length !=0">
+    <div class="container">
+    <div class="card-table">
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>Sr.No</th>
+                    <th>Product Name</th>
+                    <th>Product Image</th>
+                    <th>Description</th>
+                  
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Action</th>                                
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of products; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{item.title}}</td>
+                <td><img style="width:120px;" src="{{item.image}}" alt=""></td>
+                <td Style="width: 25%;">{{item.description}}</td>
+                <!-- <th Style="width: 12%;">{{item.class}}dt</th> -->
+                <td Style="width: 12%;">{{item.quantite}}</td>
+                <td Style="width: 12%;">{{item.total}}</td>
+
+                <td>
+                    <button (click)="removeItem(item)"  class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                </td>
+            </tr>
+            <tr >
+                <td colspan="4"></td>
+                <td><button (click)="emptycart()" class="btn btn-danger">Empty Cart</button></td>
+                <td><button routerLink="/produit" class="btn btn-primary">Shop Cart</button></td>
+                <td><button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1" >Checkout</button></td>
+                <td><strong>Grand Total :{{grandTotal}}dt</strong></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</ng-container>
+
+
+<ng-container *ngIf="products.length ==0">
+<div class="container">
+    <div class="card">
+        <h5 class="card-title">My Cart</h5>
+    </div>
+    <div class="center">
+        <img src="assets/img/xm.jpg" alt="">
+        <h4>Your cart is empty!</h4>
+        <h6>Add item to it now</h6>
+        <button routerLink="/produit" class="btn btn-primary">Shop Now</button>
+    </div>
+</div>
+</ng-container>
+<router-outlet></router-outlet>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter au panier</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" [(ngModel)]="userData.name">
+                            <label for="name">Your Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" [(ngModel)]="userData.email">
+                            <label for="email">Your Email</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="numero" name="numero" placeholder="Phone" [(ngModel)]="userData.numero">
+                            <label for="subject">Phone</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="quantite" name="quantite" placeholder="quantité" [(ngModel)]="userData.quantite">
+                            <label for="subject">quantité</label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a message here" id="message" name="message" style="height: 250px" [(ngModel)]="userData.message"></textarea>
+                            <label for="message">Message</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="quantite" name="nameproduit" placeholder="nameproduit" [(ngModel)]="userData.nameproduit">
+                            <label for="subject">Nameproduit</label>
+                        </div>
+                    </div>
+                                        
+                    
+                    <!-- <div class="col-12"> -->
+                        <!-- <button class="btn btn-secondary rounded-pill py-3 px-5" type="submit">Send Message</button> -->
+                    <!-- </div> -->
+              </div>
+              <strong>Grand Total :{{grandTotal}}dt</strong>
+            </form>  
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger rounded-pill py-3 px-5" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary rounded-pill py-3 px-5" (click)="ajoutercommand()">Passer Commande</button>
+        </div>
+      </div>
+    </div>
+  </div>
